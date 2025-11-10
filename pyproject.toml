@@ -30,4 +30,4 @@ dependencies = [
 where = ["src"]
 
 [tool.setuptools.dynamic]
-version = {file = "src/pap_maker/init.py"}
+version = {file = "src/pap_maker/__init__.py"}

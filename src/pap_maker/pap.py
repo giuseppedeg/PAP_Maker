@@ -128,27 +128,28 @@ class Maker:
             json.dump(json_data, json_file, indent=4)
 
 
-def create_pap(image_path, annotation_path, save_img=False, image_kb_max=1300000):
+def create_pap(image_path, annotation_path, output_folder=None, save_img=False, image_kb_max=1300000):
     """
     Create a PAP annotation file starting froma an image file and a COCO json annotation file
     args:
       - image_path: path of the image to include tin the PAP file
       - annotation_path: path of the COCO json annotation file
+      - output_folder: folder where to save the PAP file. if None, the file is saved in the directory taht contains image_path
       - save_img (bool): if True, the image included in the PAP file is saved 
       - image_kb_max (int): Maximum image size in KB to include in the PAP file. If the image passed is larger, the method automatically reduces the image size to meet this constraint. 
     """
     file_h = Maker()
 
-    out_fld = os.path.dirname(annotation_path)
     img_name = os.path.basename(image_path)
 
-    if out_fld == "":
-        out_fld = "."
+    if output_folder is None:
+      output_folder = os.path.join(os.path.dirname(annotation_path), "output")
+    os.makedirs(output_folder, exist_ok=True)
 
     image = Image.open(image_path)
     image = image.convert("RGB") 
 
-    image_path = os.path.join(out_fld, f"_{img_name}")
+    image_path = os.path.join(output_folder, img_name)
 
     quality = 100
     image.save(image_path,quality=quality,optimize=True)
@@ -161,10 +162,7 @@ def create_pap(image_path, annotation_path, save_img=False, image_kb_max=1300000
         file_size = os.path.getsize(image_path)
         #print(name, file_size)
    
-    file_h.save_papfile(image_path, annotation_path, out_fld)
-
-    os.rename(os.path.join(out_fld, f"_{os.path.splitext(img_name)[0]}.pap"),
-              os.path.join(out_fld, f"{os.path.splitext(img_name)[0]}.pap"), )
+    file_h.save_papfile(image_path, annotation_path, output_folder)
 
     if not save_img:
         os.remove(image_path)
@@ -174,8 +172,10 @@ if __name__ == "__main__":
     # This allows the file to be run directly for testing
 
     ## Create a PAP file
-    create_pap(img_path="P_Flor_2_109r.jpg", 
-               annotation_path="annotations.json")
+    create_pap(image_path="data/test1/P_Flor_2_109r.jpg", 
+               annotation_path="data/test1/annotations.json",
+               output_folder="out",
+               save_img=True)
 
     # Extract info from a a PAP file
     m = Maker()
