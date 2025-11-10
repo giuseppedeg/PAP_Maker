@@ -142,6 +142,9 @@ def create_pap(image_path, annotation_path, save_img=False, image_kb_max=1300000
     out_fld = os.path.dirname(annotation_path)
     img_name = os.path.basename(image_path)
 
+    if out_fld == "":
+        out_fld = "."
+
     image = Image.open(image_path)
     image = image.convert("RGB") 
 
@@ -169,14 +172,15 @@ def create_pap(image_path, annotation_path, save_img=False, image_kb_max=1300000
 
 if __name__ == "__main__":
     # This allows the file to be run directly for testing
-    img_path = "data/P_Flor_2_109r.jpg"
-    annotation_path = "data/annotations.json"
-    create_pap(img_path, annotation_path, False)
 
+    ## Create a PAP file
+    create_pap(img_path="P_Flor_2_109r.jpg", 
+               annotation_path="annotations.json")
+
+    # Extract info from a a PAP file
+    m = Maker()
+    m.extract_info(file_path="P_Flor_2_109r.pap", 
+                   out_dir=".")
+    
     print("Done!")
 
-    m = Maker()
-
-    m.extract_info(file_path="data/test/P_Flor_2_109r.pap", 
-                   out_dir="data/test/")
-    
