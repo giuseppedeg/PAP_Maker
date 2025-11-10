@@ -21,7 +21,7 @@ We can easily create a PAP file having an image and the annotation in COCO json 
 from pap_maker.pap import create_pap
 
 create_pap(image_path="PATH_TO_IMAGE_FILE",
-           annotation_path="PATH_TO_JSON_FILE)
+           annotation_path="PATH_TO_JSON_FILE")
 ```
 
 ### Manipulate a PAP file

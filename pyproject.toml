@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pap_maker"
-dynamic = ["version"]
+version = 0.1.1
 description = "pip-installable Python PAP file maker."
 readme = "README.md"
 requires-python = ">=3.8"
@@ -29,5 +29,3 @@ dependencies = [
 [tool.setuptools.packages.find]
 where = ["src"]
 
-[tool.setuptools.dynamic]
-version = {file = "src/pap_maker/__init__.py"}
