@@ -6,8 +6,9 @@ This Python package allows you to create and manage annotation files in PAP form
 
 ## Installation
 ```
-pip install https://github.com/giuseppedeg/PAP_Maker
+pip install git+https://github.com/giuseppedeg/PAP_Maker.git
 ```
+__NOTE__: Make sure you have git installed on your machine!
 
 ## Usage
 
@@ -19,7 +20,7 @@ We can easily create a PAP file having an image and the annotation in COCO json 
 ```ptython
 from pap_maker.pap import create_pap
 
-create_pap(img_path="PATH_TO_IMAGE_FILE",
+create_pap(image_path="PATH_TO_IMAGE_FILE",
            annotation_path="PATH_TO_JSON_FILE)
 ```
 
